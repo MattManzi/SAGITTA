@@ -36,26 +36,8 @@ SAGITTA (Servizio Avanzato di Gestione brevetti con Innovazione Tecnologica e Tr
     - Implementazione di un sistema di timestamp per garantire l'integrità temporale dei dati.
     - Tracciamento pubblico delle transazioni sulla blockchain.
 
-### 6**. Marketplace (Opzionale):**
+### **6. Marketplace (Opzionale):**
 
 - **Brevetti in Vendita:**
     - Creazione di un marketplace per consentire agli inventori di vendere o trasferire i propri brevetti NFT.
     - Implementazione di contratti intelligenti per facilitare le transazioni.
-
-### 7**. Notifiche e Comunicazioni:**
-
-- **Sistema di Avvisi:**
-    - Implementazione di un sistema di notifiche per aggiornare gli utenti sullo stato delle loro richieste e brevetti NFT.
-    - Comunicazioni periodiche sugli aggiornamenti del servizio.
-
-### 8**. Sicurezza e Compliance:**
-
-- **Sicurezza del Sito:**
-    - Adozione di misure di sicurezza robuste per proteggere i dati sensibili.
-    - Rispetto delle leggi e regolamenti relativi alla protezione dei dati e alla blockchain.
-
-### 9**. Termini di Servizio e Privacy:**
-
-- **Documenti Legali:**
-    - Creazione di chiari Termini di Servizio e Politiche sulla Privacy.
-    - Richiesta dell'accettazione da parte degli utenti durante la registrazione.
