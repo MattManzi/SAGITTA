@@ -1,3 +1,4 @@
+
 // URL del provider JSON-RPC
 const rpcUrl = "https://rpc-mumbai.maticvigil.com";
 
@@ -34,6 +35,7 @@ document.addEventListener("DOMContentLoaded", function () {
   brevettoForm.addEventListener("submit", function (e) {
     e.preventDefault();
 
+    var nomeBrevetto = document.getElementById("nome_brevetto").value;
     var nomeInventore = document.getElementById("nome_inventore").value;
     var cognomeInventore = document.getElementById("cognome_inventore").value;
     var indirizzoInventore = document.getElementById("indirizzo_inventore").value;
@@ -41,6 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
     var tipoBrevetto = document.getElementById("tipo_brevetto").value;
     var priorita = document.getElementById("priorità").value;
 
+    console.log("Nome Brevetto:", nomeBrevetto);
     console.log("Nome Inventore:", nomeInventore);
     console.log("Cognome Inventore:", cognomeInventore);
     console.log("Indirizzo Inventore:", indirizzoInventore);
@@ -49,19 +52,29 @@ document.addEventListener("DOMContentLoaded", function () {
     console.log("Data:", priorita);
 
     var datiJson = {
-      "nomeInventore": nomeInventore,
-      "cognomeInventore": cognomeInventore,
-      "indirizzoInventore": indirizzoInventore,
-      "descrizioneInvenzione": descrizioneInvenzione,
-      "tipoBrevetto": tipoBrevetto,
-      "priorita": priorita
+    "attributes" : [ {
+      "trait_type" : "SagittaSBT",
+      "value" : "Brevetti Certificati SAGITTA"
+    }, {
+      "trait_type" : "Tipo di Brevetto",
+      "value" : "Brevetto d'utilità"
+    }, {
+        "trait_type" : "Proprietario",
+        "value" : nomeInventore+" "+cognomeInventore
+      }, {
+        "trait_type" : "Data del Brevetto",
+        "value" : priorita
+      }   ],
+    "description" : descrizioneInvenzione,
+    "image" : "https://gateway.pinata.cloud/ipfs/Qmar8RRAZ5QoVPTzvrRk9PcFSm9YKbkanxmd951nXk2bgM", //qui si deve inserire il COD di pinata
+    "name" : nomeBrevetto
     };
 
     console.log("Dati Json:", datiJson);
 
     // Invia i dati al server
     inviaDatiAlServer(datiJson);
-
+    inviaPinata(datiJson);
     // Resetta il modulo se necessario
     brevettoForm.reset();
   });
@@ -84,5 +97,27 @@ document.addEventListener("DOMContentLoaded", function () {
       console.error('Errore durante la richiesta al server:', error);
     });
   }
+
+  function inviaPinata(datiJson) {
+    fetch('http://localhost:3002/inviaPinata', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(datiJson),
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log('Risposta dal server:', data);
+      //inviaPinata();
+    })
+    .catch(error => {
+      console.error('Errore durante la richiesta al server:', error);
+    });
+  }
+
+
+
+
 
 
