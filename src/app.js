@@ -72,16 +72,24 @@ document.addEventListener("DOMContentLoaded", function () {
 
     console.log("Dati Json:", datiJson);
 
-    // Invia i dati al server
-    inviaDatiAlServer(datiJson);
-    inviaPinata(datiJson);
+    //Creazione del .png
+
+
+    //Caricamento del .png su pinata
+
+    // Creazione del file JSON
+    creazioneJSON(datiJson);
+
+    //Caricamento del file JSON su pinata
+    caricamentJSON();
+    
     // Resetta il modulo se necessario
     brevettoForm.reset();
   });
   });
 
 
-  function inviaDatiAlServer(datiJson) {
+  function creazioneJSON(datiJson) {
     fetch('http://localhost:3002/salvaDati', {
       method: 'POST',
       headers: {
@@ -98,23 +106,31 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  function inviaPinata(datiJson) {
-    fetch('http://localhost:3002/inviaPinata', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(datiJson),
-    })
+function caricamentJSON() {
+  // Leggi il contenuto del file dal progetto (assumendo che sia un file JSON)
+  fetch('./dati.json')
     .then(response => response.json())
-    .then(data => {
-      console.log('Risposta dal server:', data);
-      //inviaPinata();
+    .then(datiJson => {
+      // Invia i dati al server
+      fetch('http://localhost:3002/inviaPinata', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(datiJson),
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log('Risposta dal server:', data);
+      })
+      .catch(error => {
+        console.error('Errore durante la richiesta al server:', error);
+      });
     })
     .catch(error => {
-      console.error('Errore durante la richiesta al server:', error);
+      console.error('Errore durante la lettura del file:', error);
     });
-  }
+}
 
 
 
