@@ -51,13 +51,16 @@ document.addEventListener("DOMContentLoaded", function () {
     console.log("Tipo Brevetto:", tipoBrevetto);
     console.log("Data:", priorita);
 
+    const ipfsUtility="QmX3qLwqECxBFnb1hex33my2dPE63NstL9scvF1iem3kzK";
+    const ipfsDesign="QmUu5JrsadDmE7hhj1guTPqQazPwJXJAf1Va4KTVZocVqr";
+
     var datiJson = {
     "attributes" : [ {
       "trait_type" : "SagittaSBT",
       "value" : "Brevetti Certificati SAGITTA"
     }, {
       "trait_type" : "Tipo di Brevetto",
-      "value" : "Brevetto d'utilità"
+      "value" : tipoBrevetto
     }, {
         "trait_type" : "Proprietario",
         "value" : nomeInventore+" "+cognomeInventore
@@ -66,23 +69,17 @@ document.addEventListener("DOMContentLoaded", function () {
         "value" : priorita
       }   ],
     "description" : descrizioneInvenzione,
-    "image" : "https://gateway.pinata.cloud/ipfs/Qmar8RRAZ5QoVPTzvrRk9PcFSm9YKbkanxmd951nXk2bgM", //qui si deve inserire il COD di pinata
+    "image" : "https://gateway.pinata.cloud/ipfs/"+(tipoBrevetto ==="brevetto_utilità" ? ipfsUtility : ipfsDesign), //qui si deve inserire il COD di pinata
     "name" : nomeBrevetto
     };
 
     console.log("Dati Json:", datiJson);
 
-    //Creazione del .png
-
-
     //Caricamento del .png su pinata
 
-    // Creazione del file JSON
+    // Creazione del file JSON e Caricamento del file JSON su pinata
     creazioneJSON(datiJson);
 
-    //Caricamento del file JSON su pinata
-    caricamentJSON();
-    
     // Resetta il modulo se necessario
     brevettoForm.reset();
   });
@@ -106,31 +103,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-function caricamentJSON() {
-  // Leggi il contenuto del file dal progetto (assumendo che sia un file JSON)
-  fetch('./dati.json')
-    .then(response => response.json())
-    .then(datiJson => {
-      // Invia i dati al server
-      fetch('http://localhost:3002/inviaPinata', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(datiJson),
-      })
-      .then(response => response.json())
-      .then(data => {
-        console.log('Risposta dal server:', data);
-      })
-      .catch(error => {
-        console.error('Errore durante la richiesta al server:', error);
-      });
-    })
-    .catch(error => {
-      console.error('Errore durante la lettura del file:', error);
-    });
-}
 
 
 
