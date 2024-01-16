@@ -1,0 +1,21 @@
+{
+    "attributes" : [ {
+      "trait_type" : "NFT",
+      "value" : "Soulbound"
+    }, {
+      "trait_type" : "SagittaSBT",
+      "value" : "Brevetti Certificati SAGITTA"
+    }, {
+      "trait_type" : "Tipo di Brevetto",
+      "value" : "Brevetto d'utilità"
+    }, {
+        "trait_type" : "Proprietario",
+        "value" : "Mario Rossi"
+      }, {
+        "trait_type" : "Data del Brevetto",
+        "value" : "30/08/1978"
+      }   ],
+    "description" : "Telefono giallo",
+    "image" : "https://gateway.pinata.cloud/ipfs/QmcHN8zVjuCsVXpD7uLsyJXSnjKuRiVVN6bo6X58abuHi4", 
+    "name" : "Phon"
+}
