@@ -1,15 +1,14 @@
 const urlJSON = "./SoulboundToken.json";
-
+//creazione del provider ->Un "provider" è responsabile di fornire l'accesso ai dati della blockchain, come il saldo di un account, lo stato di un contratto e le transazioni passate.
 const web3Provider = new ethers.providers.Web3Provider(window.ethereum);
 const httpPinata = "https://gateway.pinata.cloud/ipfs/";
 const contractAddress = "0xF48601e40a6ab82D0CF9dbE05a9fCF3729Ad03Cd";
 let abi = "";
-
 var connectedAccount = "";
 var ipfsBrevetto = "";
 var contract = "";
 var soulboundTokenContract;
-
+//creazione del signer -> Un "signer" è una specifica istanza di un provider che ha la capacità di firmare transazioni e inviarle alla blockchain.
 const signer = web3Provider.getSigner()
 console.log("Provider:", signer);
 
@@ -51,11 +50,6 @@ if (typeof window.ethereum !== 'undefined') {
 } else {
   console.error('MetaMask non è installato nel browser.');
 }
-
-
-
-
-
 
 document.addEventListener("DOMContentLoaded", function () {
   var brevettoForm = document.forms.brevettoForm;
@@ -107,13 +101,12 @@ document.addEventListener("DOMContentLoaded", function () {
     // Creazione del file JSON e Caricamento del file JSON su pinata
     creazioneJSON(datiJson, connectedAccount);
     console.log(ipfsBrevetto);
-    mintSbt(ipfsBrevetto);
-
     // Resetta il modulo se necessario
     brevettoForm.reset();
   });
 });
 
+//Funtione che comunica con lo smart contract per eseguire il safeMint()
 async function mintSbt(ipfsBrevetto) {
   const transaction = await contract.safeMint(connectedAccount, httpPinata + ipfsBrevetto);
   // Attendere che la transazione sia confermata
@@ -121,7 +114,7 @@ async function mintSbt(ipfsBrevetto) {
   console.log("Transazione confermata:", transaction);
 }
 
-
+//Funtione è per la creazione del file JSON e caricamento su Pinta gestito sul server alla porta 3002
 async function creazioneJSON(datiJson, connectedAccount) {
   await fetch('http://localhost:3002/salvaDati', {
     method: 'POST',
@@ -138,6 +131,7 @@ async function creazioneJSON(datiJson, connectedAccount) {
     .then(data => {
       console.log('Ris dal server:', data.ipfsHashBrevetto);
       ipfsBrevetto = data.ipfsHashBrevetto;
+      //si aspetta la risposta dal server del caricamento su pinata per poi eseguire la funzine mintSbt()
       mintSbt(ipfsBrevetto);
 
       return data;
