@@ -1,33 +1,61 @@
+const urlJSON = "./SoulboundToken.json";
 
-// URL del provider JSON-RPC
-const rpcUrl = "https://rpc-mumbai.maticvigil.com";
+const web3Provider = new ethers.providers.Web3Provider(window.ethereum);
+const httpPinata = "https://gateway.pinata.cloud/ipfs/";
+const contractAddress = "0xF48601e40a6ab82D0CF9dbE05a9fCF3729Ad03Cd";
+let abi = "";
 
-// Crea un provider JSON-RPC
-const provider = new ethers.providers.JsonRpcProvider("https://rpc-mumbai.maticvigil.com");
+var connectedAccount = "";
+var ipfsBrevetto = "";
+var contract = "";
+var soulboundTokenContract;
+
+const signer = web3Provider.getSigner()
+console.log("Provider:", signer);
+
+// Utilizza la funzione fetch per ottenere il contenuto del file JSON
+fetch(urlJSON)
+  .then(response => {
+    // Controlla se la richiesta HTTP ha avuto successo
+    if (!response.ok) {
+      throw new Error('Errore nella richiesta HTTP ' + response.status);
+    }
+    // Parsa il corpo della risposta come JSON
+    return response.json();
+  })
+  .then(data => {
+    console.log(data.abi);
+    abi = data;
+    contract = new ethers.Contract(contractAddress, abi.abi, signer);
+    console.log("contract:", contract);
+  })
+  .catch(error => {
+    console.error('Si è verificato un errore durante il recupero del file JSON:', error);
+  });
 
 // Controlla se MetaMask è installato
 if (typeof window.ethereum !== 'undefined') {
   // Connettiti a MetaMask
   window.ethereum
     .request({ method: 'eth_requestAccounts' })
-    .then((accounts) => {
-      const connectedAccount = accounts[0];
-      const balance = provider.getBalance(connectedAccount);
+    .then(async (accounts) => {
+      connectedAccount = accounts[0];
+      const balance = await web3Provider.getBalance(connectedAccount);
       console.log('Saldo:', balance);
       const account = document.getElementById('myName');
       account.innerHTML = connectedAccount;
-      // Ora puoi utilizzare l'indirizzo connesso come desideri
-      // ad esempio, puoi utilizzarlo per creare un provider ethers per Ethereum
-      const ethProvider = new ethers.providers.Web3Provider(window.ethereum);
-      // Altri tuoi codici per Ethereum...
     })
     .catch((error) => {
-      
       console.error('Errore durante la connessione a MetaMask:', error);
     });
 } else {
   console.error('MetaMask non è installato nel browser.');
 }
+
+
+
+
+
 
 document.addEventListener("DOMContentLoaded", function () {
   var brevettoForm = document.forms.brevettoForm;
@@ -51,61 +79,71 @@ document.addEventListener("DOMContentLoaded", function () {
     console.log("Tipo Brevetto:", tipoBrevetto);
     console.log("Data:", priorita);
 
-    const ipfsUtility="QmX3qLwqECxBFnb1hex33my2dPE63NstL9scvF1iem3kzK";
-    const ipfsDesign="QmUu5JrsadDmE7hhj1guTPqQazPwJXJAf1Va4KTVZocVqr";
+    const ipfsUtility = "QmX3qLwqECxBFnb1hex33my2dPE63NstL9scvF1iem3kzK";
+    const ipfsDesign = "QmUu5JrsadDmE7hhj1guTPqQazPwJXJAf1Va4KTVZocVqr";
 
     var datiJson = {
-    "attributes" : [ {
-      "trait_type" : "SagittaSBT",
-      "value" : "Brevetti Certificati SAGITTA"
-    }, {
-      "trait_type" : "Tipo di Brevetto",
-      "value" : tipoBrevetto
-    }, {
-        "trait_type" : "Proprietario",
-        "value" : nomeInventore+" "+cognomeInventore
+      "attributes": [{
+        "trait_type": "SagittaSBT",
+        "value": "Brevetti Certificati SAGITTA"
       }, {
-        "trait_type" : "Data del Brevetto",
-        "value" : priorita
-      }   ],
-    "description" : descrizioneInvenzione,
-    "image" : "https://gateway.pinata.cloud/ipfs/"+(tipoBrevetto ==="brevetto_utilità" ? ipfsUtility : ipfsDesign), //qui si deve inserire il COD di pinata
-    "name" : nomeBrevetto
+        "trait_type": "Tipo di Brevetto",
+        "value": tipoBrevetto
+      }, {
+        "trait_type": "Proprietario",
+        "value": nomeInventore + " " + cognomeInventore
+      }, {
+        "trait_type": "Data del Brevetto",
+        "value": priorita
+      }],
+      "description": descrizioneInvenzione,
+      "image": "https://gateway.pinata.cloud/ipfs/" + (tipoBrevetto === "brevetto_utilità" ? ipfsUtility : ipfsDesign), //qui si deve inserire il COD di pinata
+      "name": nomeBrevetto
     };
 
     console.log("Dati Json:", datiJson);
-
-    //Caricamento del .png su pinata
+    console.log("Account:", connectedAccount);
 
     // Creazione del file JSON e Caricamento del file JSON su pinata
-    creazioneJSON(datiJson);
+    creazioneJSON(datiJson, connectedAccount);
+    console.log(ipfsBrevetto);
+    mintSbt(ipfsBrevetto);
 
     // Resetta il modulo se necessario
     brevettoForm.reset();
   });
-  });
+});
+
+async function mintSbt(ipfsBrevetto) {
+  const transaction = await contract.safeMint(connectedAccount, httpPinata + ipfsBrevetto);
+  // Attendere che la transazione sia confermata
+  await transaction.wait();
+  console.log("Transazione confermata:", transaction);
+}
 
 
-  function creazioneJSON(datiJson) {
-    fetch('http://localhost:3002/salvaDati', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(datiJson),
-    })
+async function creazioneJSON(datiJson, connectedAccount) {
+  await fetch('http://localhost:3002/salvaDati', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      dati: datiJson,
+      address: connectedAccount
+    }),
+
+  })
     .then(response => response.json())
     .then(data => {
-      console.log('Risposta dal server:', data);
+      console.log('Ris dal server:', data.ipfsHashBrevetto);
+      ipfsBrevetto = data.ipfsHashBrevetto;
+      mintSbt(ipfsBrevetto);
+
+      return data;
     })
     .catch(error => {
       console.error('Errore durante la richiesta al server:', error);
     });
-  }
-
-
-
-
-
-
+}
 

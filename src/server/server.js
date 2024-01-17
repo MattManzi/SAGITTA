@@ -3,8 +3,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const fs = require('fs');
-const multer = require('multer');
 const pinataSDK = require('@pinata/sdk');
+const httpPinata="https://gateway.pinata.cloud/ipfs/";
 
 //Pinata setup
 const pinata = new pinataSDK('4ad97ee4cb69986a2499', '3857316b8ceaa258886f101c6bf127b04188ed51427ca1916d53df9769b42ea9');
@@ -21,12 +21,19 @@ app.use(cors());
 
 // Gestisci la richiesta POST a /salvaDati
 app.post('/salvaDati', async (req, res) => {
-  const datiJson = req.body;
+  const datiJson = req.body.dati;
+  const address= req.body.address;
   var nomeBrevetto = datiJson.name;
-  console.log(datiJson, nomeBrevetto);
+
   createJSONFile(nomeBrevetto, datiJson);
-  await uploadPinata(nomeBrevetto);
+  console.log("createJSONFile",datiJson, nomeBrevetto);
+
+  var ipfsHashBrevetto=await uploadPinata(nomeBrevetto);
   deleteFile("./" + nomeBrevetto + '.json');  
+  console.log("ipfsBrevetto: ",ipfsHashBrevetto);
+  console.log("req.Body: ",req.body);
+
+  res.status(200).json({ ipfsHashBrevetto: ipfsHashBrevetto });
 });
 
 
@@ -69,8 +76,9 @@ async function uploadPinata(nomeBrevetto) {
 
     };
 
-    const pinataStatus = await pinata.pinFileToIPFS(readableStreamForFile, uploadOptions)
-    console.log("Valore res: ", pinataStatus)
+    const pinataStatus = await pinata.pinFileToIPFS(readableStreamForFile, uploadOptions);
+    console.log("Valore res: ", pinataStatus);
+    return pinataStatus.IpfsHash;
 
   } catch (error) {
     console.error('Errore durante l\'invio a Pinata:', error.message);

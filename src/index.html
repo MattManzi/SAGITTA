@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
   <!-- Aggiungi il link al file Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
+
 <body>
 
   <nav class="navbar navbar-dark bg-dark">
@@ -17,56 +19,57 @@
   </nav>
 
   <div class="card m-4">
-      <img src="img/sagitta.png" alt="SAGITTA Logo" class="mr-2" style="width: 150px; height: 150px;">
-      <h1 class="text-white">SAGITTA</h1>
+    <img src="img/sagitta.png" alt="SAGITTA Logo" class="mr-2" style="width: 150px; height: 150px;">
+    <h1 class="text-white">SAGITTA</h1>
   </div>
 
   <div class="card text-center">
     <div class="card-body">
       <h2 class="card-title">Brevetta</h2>
       <p class="card-text">Proteggi i tuoi</p>
-   <!--   <a href="#" class="btn btn-primary">Brevetti</a>-->
-    <form name="brevettoForm" >
-      <!-- Informazioni sull'inventore -->
-    
-      <label for="nome_inventore">Nome Brevetto:</label>
-      <input type="text" id="nome_brevetto" name="nome_brevetto" required><br>
+      <!--   <a href="#" class="btn btn-primary">Brevetti</a>-->
+      <form name="brevettoForm">
+        <!-- Informazioni sull'inventore -->
 
-      <label for="nome_inventore">Nome Inventore:</label>
-      <input type="text" id="nome_inventore" name="nome_inventore" required><br>
+        <label for="nome_inventore">Nome Brevetto:</label>
+        <input type="text" id="nome_brevetto" name="nome_brevetto" required><br>
 
-      <label for="cognome_inventore">Cognome Inventore:</label>
-      <input type="text" id="cognome_inventore" name="cognome_inventore" required><br>
+        <label for="nome_inventore">Nome Inventore:</label>
+        <input type="text" id="nome_inventore" name="nome_inventore" required><br>
 
-      <label for="indirizzo_inventore">Indirizzo Inventore:</label>
-      <textarea id="indirizzo_inventore" name="indirizzo_inventore" required></textarea><br>
+        <label for="cognome_inventore">Cognome Inventore:</label>
+        <input type="text" id="cognome_inventore" name="cognome_inventore" required><br>
 
- 
-      <label for="descrizione_invenzione">Descrizione Invenzione:</label>
-      <textarea id="descrizione_invenzione" name="descrizione_invenzione" required></textarea><br>
+        <label for="indirizzo_inventore">Indirizzo Inventore:</label>
+        <textarea id="indirizzo_inventore" name="indirizzo_inventore" required></textarea><br>
 
-   
-      <label for="tipo_brevetto">Tipo Brevetto:</label>
-      <select id="tipo_brevetto" name="tipo_brevetto" required>
+
+        <label for="descrizione_invenzione">Descrizione Invenzione:</label>
+        <textarea id="descrizione_invenzione" name="descrizione_invenzione" required></textarea><br>
+
+
+        <label for="tipo_brevetto">Tipo Brevetto:</label>
+        <select id="tipo_brevetto" name="tipo_brevetto" required>
           <option value="brevetto_utilità">Brevetto di Utilità</option>
           <option value="brevetto_design">Brevetto di Design</option>
-  
-      </select><br>
 
-  
-      <label for="priorità">Data:</label>
-      <input type="date" id="priorità" name="priorità"><br> 
+        </select><br>
 
-      <!-- Invia il modulo -->
-      <input type="submit" value="Invia Richiesta">
-    </form>
+
+        <label for="priorità">Data:</label>
+        <input type="date" id="priorità" name="priorità"><br>
+
+        <!-- Invia il modulo -->
+        <input type="submit" value="Invia Richiesta">
+      </form>
 
     </div>
   </div>
 
 
   <!-- Aggiungi il link al file Bootstrap JS e al file Popper.js -->
-  <script src="https://cdn.ethers.io/lib/ethers-5.0.umd.min.js"></script>
+<script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js"
+        type="application/javascript"></script>
   <script src="app.js"></script>
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
@@ -76,4 +79,3 @@
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 </body>
-</h
