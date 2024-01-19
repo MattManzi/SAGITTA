@@ -13,35 +13,39 @@
       position: absolute;
       background-color: #3b2fad99;
       border: none;
-      border-radius: 5%;
+      border-radius: 2%;
       /* Rimuovi i bordi arrotondati di default di Bootstrap */
       margin-top: 2%;
-      margin-left: 45%;
+      margin-left: 35%;
       /* Posiziona la card a destra */
-      padding: 20px;
+      padding: 5px;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      width: 50%;
+      
       /* Larghezza della card */
     }
 
-        .card-form label {
+    .card-form label {
       color: white;
+      font-family: cursive;
     }
 
     .card-form input,
     .card-form textarea,
     .card-form select {
-      color: #495057;
-      background-color: #fff;
-      border: 1px solid #ced4da;
+      color: #ffffff;
+      background-color: #3b2ca6;
+      border: 1px solid #ffffff;
       border-radius: 0.25rem;
     }
 
-        .card-form input[type="submit"]:hover {
-      background-color: #23272b;
+    input {
+      border: none;
+      border-bottom: 1px solid #ccc; /* Colore della linea sotto l'input */
+      outline: none; /* Rimuove la bordatura di focus */
+      background-color: transparent; /* Rende lo sfondo trasparente */
     }
 
-        .card-form input[type="submit"] {
+    .card-form input[type="submit"] {
       background-color: #343a40;
       color: white;
       cursor: pointer;
@@ -49,32 +53,30 @@
   </style>
 </head>
 
-<body style="background-color: #3b2fad;">
-
-
+<body style="background-color: #3c279c;">
   <!-- Il resto del tuo contenuto qui -->
 
   <nav class="navbar navbar-dark bg-dark">
     <div class="d-flex align-items-center ml-auto">
       <p><span id="myAddress"></span></p>
-      <span id="myName" style="color: white;">Account</span>
+      <span id="myName" style="color: white; font-family: cursive;">Account</span>
     </div>
   </nav>
 
-  <div>
+  <div class="container">
     <div style="position: absolute;">
-      <img src="img/sfondo3.jpg" alt="SAGITTA Logo" class="mr-2" style="width: auto; height: auto;">
+      <img src="img/sfondo5.png" alt="SAGITTA Logo" class="mr-2" style="width: 65%;">
     </div>
 
     <div class="card-form">
       <div class="card-body">
-        <h4 class="card-title" style="color: #fff;">Compila per richiedere un brevetto:</h4>
+        <h4 class="card-title" style="color: #fff; font-family: cursive;">Compila per richiedere un brevetto:</h4>
 
         <form name="brevettoForm">
           <!-- Informazioni sull'inventore -->
           <div class="form-group">
             <label for="nome_brevetto">Nome Brevetto:</label>
-            <input type="text" id="nome_brevetto" name="nome_brevetto" required>
+            <input id="nome_brevetto" name="nome_brevetto" required>
           </div>
 
           <div class="form-group">
@@ -107,15 +109,18 @@
           <div class="form-group">
             <label for="priorità">Data:</label>
             <input type="date" id="priorità" name="priorità">
+
           </div>
 
           <!-- Invia il modulo -->
-          <input style=" text-align: center;" type="submit" value="Invia Richiesta">
-        </form>
+          <div class="col-sm-12 d-flex justify-content-center"></div>
+          <input style=" text-align: center; font-family: cursive;" type="submit" value="Invia Richiesta">
       </div>
-
-
+      </form>
     </div>
+
+
+  </div>
 
   </div>
 
