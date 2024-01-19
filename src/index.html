@@ -5,10 +5,19 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SAGITTA</title>
+  <link rel="icon" href="./img/logo.jpg" type="image/x-icon">
+<link rel="shortcut icon" href="./img/logo.jpg" type="image/x-icon">
+
   <!-- Aggiungi il link al file Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
   <style>
+    .navbar {
+      margin: 8px;
+      border-radius: 10px;
+      background-color:  #2e208d !important;
+    }
+
     .card-form {
       position: absolute;
       background-color: #3b2fad99;
@@ -16,11 +25,11 @@
       border-radius: 2%;
       /* Rimuovi i bordi arrotondati di default di Bootstrap */
       margin-top: 2%;
-      margin-left: 35%;
+      right: 8%;
       /* Posiziona la card a destra */
-      padding: 5px;
+      padding: 8px 30px 8px 30px ;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      
+
       /* Larghezza della card */
     }
 
@@ -35,89 +44,154 @@
       color: #ffffff;
       background-color: #3b2ca6;
       border: 1px solid #ffffff;
-      border-radius: 0.25rem;
+      border-radius: 7px;
+      width: 195px;
+      padding: 6px;
+      height: 44px;
+    }
+
+    #indirizzo_inventore,
+    #descrizione_invenzione,
+    #nome_brevetto {
+      width: 100%;
     }
 
     input {
       border: none;
-      border-bottom: 1px solid #ccc; /* Colore della linea sotto l'input */
-      outline: none; /* Rimuove la bordatura di focus */
-      background-color: transparent; /* Rende lo sfondo trasparente */
+      border-bottom: 1px solid #ccc;
+      /* Colore della linea sotto l'input */
+      outline: none;
+      /* Rimuove la bordatura di focus */
+      background-color: transparent;
+      /* Rende lo sfondo trasparente */
     }
 
     .card-form input[type="submit"] {
-      background-color: #343a40;
-      color: white;
+      background-color: #D7F205;
+      color: #3b2ca6;
       cursor: pointer;
+      width: 100%;
+      margin-top: 20px;
+      border: none;
+    }
+
+    .card-title {
+      /*text-align: center;*/
+      text-transform: uppercase;
+      font-weight: bold;
+      color: #fff;
+      font-family: cursive;
+    }
+
+    h4.card-title {
+      font-size: 15px;
+      margin-top: 40px;
+    }
+
+    .group-flex {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    input[type="date"]::-webkit-calendar-picker-indicator {
+      filter: invert(1);
+      /* Cambia il colore dell'icona invertendo i colori */
+      /* Altri stili personalizzati se necessario */
+    }
+
+    input[type="date"]::-moz-calendar-picker-indicator {
+      filter: invert(1);
+      /* Altri stili personalizzati se necessario */
+    }
+
+    input[type="date"]::-ms-calendar-picker-indicator {
+      filter: invert(1);
+      /* Altri stili personalizzati se necessario */
+    }
+
+    #logo {
+      align-self: flex-start;
+      width: 50px;
+      border-radius: 8px;
     }
   </style>
 </head>
 
-<body style="background-color: #3c279c;">
+<body style="background-color:#1c0b5d;">
   <!-- Il resto del tuo contenuto qui -->
 
-  <nav class="navbar navbar-dark bg-dark">
+  <nav class="navbar navbar-dark bg">
+    <img id="logo" src="img/logo.jpg">
+
     <div class="d-flex align-items-center ml-auto">
       <p><span id="myAddress"></span></p>
-      <span id="myName" style="color: white; font-family: cursive;">Account</span>
+      <span style="color: white; font-family: cursive;">Account: </span>
+      <span id="myName" style="color: white; font-family: cursive;"> Sign in</span>
     </div>
   </nav>
 
   <div class="container">
-    <div style="position: absolute;">
+    <div style="position: absolute; left: 220px; top:calc(50% - 278px)">
       <img src="img/sfondo5.png" alt="SAGITTA Logo" class="mr-2" style="width: 65%;">
     </div>
 
     <div class="card-form">
       <div class="card-body">
-        <h4 class="card-title" style="color: #fff; font-family: cursive;">Compila per richiedere un brevetto:</h4>
+        <h2 class="card-title">Richiedi un brevetto</h4>
+          <h4 class="card-title">Informazioni Proprietario</h4>
+          <form name="brevettoForm">
+            <!-- Informazioni sull'inventore -->
 
-        <form name="brevettoForm">
-          <!-- Informazioni sull'inventore -->
-          <div class="form-group">
-            <label for="nome_brevetto">Nome Brevetto:</label>
-            <input id="nome_brevetto" name="nome_brevetto" required>
-          </div>
+            <div class="form-group group-flex">
 
-          <div class="form-group">
-            <label for="nome_inventore">Nome:</label>
-            <input type="text" id="nome_inventore" name="nome_inventore" required>
-            <label for="cognome_inventore">Cognome:</label>
-            <input type="text" id="cognome_inventore" name="cognome_inventore" required>
+              <div>
+                <label for="nome_inventore">Nome</label> <br>
+                <input type="text" id="nome_inventore" name="nome_inventore" required>
+              </div>
+              <div>
+                <label for="cognome_inventore">Cognome</label> <br>
+                <input type="text" id="cognome_inventore" name="cognome_inventore" required>
+              </div>
+            </div>
 
-          </div>
+            <div class="form-group">
+              <label for="indirizzo_inventore">Indirizzo</label> <br>
+              <input id="indirizzo_inventore" name="indirizzo_inventore" required></input>
+            </div>
+            <h4 class="card-title">Informazioni Brevetto</h4>
+            <div class="form-group">
+              <label for="nome_brevetto">Nome Brevetto</label><br>
+              <input id="nome_brevetto" name="nome_brevetto" required>
+            </div>
 
 
-          <div class="form-group">
-            <label for="indirizzo_inventore">Indirizzo Inventore:</label>
-            <input id="indirizzo_inventore" name="indirizzo_inventore" required></textarea>
-          </div>
+            <div class="form-group group-flex">
+              <div>
+                <label for="tipo_brevetto">Tipo Brevetto</label> <br>
+                <select id="tipo_brevetto" name="tipo_brevetto" required>
+                  <option value="brevetto_utilità">Brevetto di Utilità</option>
+                  <option value="brevetto_design">Brevetto di Design</option>
+                </select>
+              </div>
+              <div>
+                <label for="priorità">Data</label> <br>
+                <input type="date" id="priorità" name="priorità">
+              </div>
+            </div>
 
-          <div class="form-group">
-            <label for="descrizione_invenzione">Descrizione Invenzione:</label>
-            <textarea id="descrizione_invenzione" name="descrizione_invenzione" required></textarea>
-          </div>
+            <div class="form-group">
+              <label for="descrizione_invenzione">Descrizione Invenzione</label> <br>
+              <input id="descrizione_invenzione" name="descrizione_invenzione" required></input>
+            </div>
 
-          <div class="form-group">
-            <label for="tipo_brevetto">Tipo Brevetto:</label>
-            <select id="tipo_brevetto" name="tipo_brevetto" required>
-              <option value="brevetto_utilità">Brevetto di Utilità</option>
-              <option value="brevetto_design">Brevetto di Design</option>
-            </select>
-          </div>
 
-          <div class="form-group">
-            <label for="priorità">Data:</label>
-            <input type="date" id="priorità" name="priorità">
-
-          </div>
-
-          <!-- Invia il modulo -->
-          <div class="col-sm-12 d-flex justify-content-center"></div>
-          <input style=" text-align: center; font-family: cursive;" type="submit" value="Invia Richiesta">
+            <!-- Invia il modulo -->
+            <div class="col-sm-12 d-flex justify-content-center"></div>
+            <input style=" text-align: center; font-family: cursive;" type="submit" value="Invia Richiesta">
       </div>
-      </form>
     </div>
+    </form>
+  </div>
 
 
   </div>
