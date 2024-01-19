@@ -42,7 +42,7 @@ if (typeof window.ethereum !== 'undefined') {
       const balance = await web3Provider.getBalance(connectedAccount);
       console.log('Saldo:', balance);
       const account = document.getElementById('myName');
-      account.innerHTML = connectedAccount;
+      account.innerHTML =connectedAccount;
     })
     .catch((error) => {
       console.error('Errore durante la connessione a MetaMask:', error);
