@@ -7,69 +7,120 @@
   <title>SAGITTA</title>
   <!-- Aggiungi il link al file Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+  <style>
+    .card-form {
+      position: absolute;
+      background-color: #3b2fad99;
+      border: none;
+      border-radius: 5%;
+      /* Rimuovi i bordi arrotondati di default di Bootstrap */
+      margin-top: 2%;
+      margin-left: 45%;
+      /* Posiziona la card a destra */
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      width: 50%;
+      /* Larghezza della card */
+    }
+
+        .card-form label {
+      color: white;
+    }
+
+    .card-form input,
+    .card-form textarea,
+    .card-form select {
+      color: #495057;
+      background-color: #fff;
+      border: 1px solid #ced4da;
+      border-radius: 0.25rem;
+    }
+
+        .card-form input[type="submit"]:hover {
+      background-color: #23272b;
+    }
+
+        .card-form input[type="submit"] {
+      background-color: #343a40;
+      color: white;
+      cursor: pointer;
+    }
+  </style>
 </head>
 
-<body>
+<body style="background-color: #3b2fad;">
+
+
+  <!-- Il resto del tuo contenuto qui -->
 
   <nav class="navbar navbar-dark bg-dark">
-    <div class="d-flex align-items-center">
+    <div class="d-flex align-items-center ml-auto">
       <p><span id="myAddress"></span></p>
       <span id="myName" style="color: white;">Account</span>
     </div>
   </nav>
 
-  <div class="card m-4">
-    <img src="img/sagitta.png" alt="SAGITTA Logo" class="mr-2" style="width: 150px; height: 150px;">
-    <h1 class="text-white">SAGITTA</h1>
-  </div>
+  <div>
+    <div style="position: absolute;">
+      <img src="img/sfondo3.jpg" alt="SAGITTA Logo" class="mr-2" style="width: auto; height: auto;">
+    </div>
 
-  <div class="card text-center">
-    <div class="card-body">
-      <h2 class="card-title">Brevetta</h2>
-      <p class="card-text">Proteggi i tuoi</p>
-      <!--   <a href="#" class="btn btn-primary">Brevetti</a>-->
-      <form name="brevettoForm">
-        <!-- Informazioni sull'inventore -->
+    <div class="card-form">
+      <div class="card-body">
+        <h4 class="card-title" style="color: #fff;">Compila per richiedere un brevetto:</h4>
 
-        <label for="nome_inventore">Nome Brevetto:</label>
-        <input type="text" id="nome_brevetto" name="nome_brevetto" required><br>
+        <form name="brevettoForm">
+          <!-- Informazioni sull'inventore -->
+          <div class="form-group">
+            <label for="nome_brevetto">Nome Brevetto:</label>
+            <input type="text" id="nome_brevetto" name="nome_brevetto" required>
+          </div>
 
-        <label for="nome_inventore">Nome Inventore:</label>
-        <input type="text" id="nome_inventore" name="nome_inventore" required><br>
+          <div class="form-group">
+            <label for="nome_inventore">Nome:</label>
+            <input type="text" id="nome_inventore" name="nome_inventore" required>
+            <label for="cognome_inventore">Cognome:</label>
+            <input type="text" id="cognome_inventore" name="cognome_inventore" required>
 
-        <label for="cognome_inventore">Cognome Inventore:</label>
-        <input type="text" id="cognome_inventore" name="cognome_inventore" required><br>
-
-        <label for="indirizzo_inventore">Indirizzo Inventore:</label>
-        <textarea id="indirizzo_inventore" name="indirizzo_inventore" required></textarea><br>
-
-
-        <label for="descrizione_invenzione">Descrizione Invenzione:</label>
-        <textarea id="descrizione_invenzione" name="descrizione_invenzione" required></textarea><br>
+          </div>
 
 
-        <label for="tipo_brevetto">Tipo Brevetto:</label>
-        <select id="tipo_brevetto" name="tipo_brevetto" required>
-          <option value="brevetto_utilità">Brevetto di Utilità</option>
-          <option value="brevetto_design">Brevetto di Design</option>
+          <div class="form-group">
+            <label for="indirizzo_inventore">Indirizzo Inventore:</label>
+            <input id="indirizzo_inventore" name="indirizzo_inventore" required></textarea>
+          </div>
 
-        </select><br>
+          <div class="form-group">
+            <label for="descrizione_invenzione">Descrizione Invenzione:</label>
+            <textarea id="descrizione_invenzione" name="descrizione_invenzione" required></textarea>
+          </div>
 
+          <div class="form-group">
+            <label for="tipo_brevetto">Tipo Brevetto:</label>
+            <select id="tipo_brevetto" name="tipo_brevetto" required>
+              <option value="brevetto_utilità">Brevetto di Utilità</option>
+              <option value="brevetto_design">Brevetto di Design</option>
+            </select>
+          </div>
 
-        <label for="priorità">Data:</label>
-        <input type="date" id="priorità" name="priorità"><br>
+          <div class="form-group">
+            <label for="priorità">Data:</label>
+            <input type="date" id="priorità" name="priorità">
+          </div>
 
-        <!-- Invia il modulo -->
-        <input type="submit" value="Invia Richiesta">
-      </form>
+          <!-- Invia il modulo -->
+          <input style=" text-align: center;" type="submit" value="Invia Richiesta">
+        </form>
+      </div>
+
 
     </div>
+
   </div>
 
-
   <!-- Aggiungi il link al file Bootstrap JS e al file Popper.js -->
-<script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js"
-        type="application/javascript"></script>
+  <script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js" type="application/javascript"></script>
   <script src="app.js"></script>
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
@@ -77,5 +128,9 @@
   <script src="web3.min.js"></script>
   <script src="https://cdn.ethers.io/lib/ethers-5.0.umd.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 
 </body>

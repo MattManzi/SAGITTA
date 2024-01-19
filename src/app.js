@@ -72,7 +72,7 @@ document.addEventListener("DOMContentLoaded", function () {
     console.log("Descrizione Invenzione:", descrizioneInvenzione);
     console.log("Tipo Brevetto:", tipoBrevetto);
     console.log("Data:", priorita);
-
+    
     const ipfsUtility = "QmX3qLwqECxBFnb1hex33my2dPE63NstL9scvF1iem3kzK";
     const ipfsDesign = "QmUu5JrsadDmE7hhj1guTPqQazPwJXJAf1Va4KTVZocVqr";
 
@@ -91,7 +91,7 @@ document.addEventListener("DOMContentLoaded", function () {
         "value": priorita
       }],
       "description": descrizioneInvenzione,
-      "image": "https://gateway.pinata.cloud/ipfs/" + (tipoBrevetto === "brevetto_utilità" ? ipfsUtility : ipfsDesign), //qui si deve inserire il COD di pinata
+      "image": "https://gateway.pinata.cloud/ipfs/"+(tipoBrevetto === "brevetto_design"?ipfsDesign:ipfsUtility), //qui si deve inserire il COD di pinata
       "name": nomeBrevetto
     };
 
